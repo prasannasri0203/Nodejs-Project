@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURD Operation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <section class="add">
+        <div>Registration Form </div><br>
+        <form action="/add" method="POST" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="productName">
+            <br>
+            <br>
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" placeholder="Image-URL" multiple>
+            <br>
+            <br>
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" placeholder="productPrice">
+            <br>
+            <br>
+            <input type="submit">
+        </form>
+    </section>
+    <br>
+    <br>
+    <hr>
+    <section class="show">
+        <table class="table">
+            <tr>
+            <th>Name</th>
+            <th>image</th>
+            <th>price</th>
+        </tr>
+        <% products.forEach(function(product){ %>
+            <tr> <td> <h4><%= product.name %></h4> </td>
+            <td>
+                <% product.image.forEach(function(image){ %>
+                <img src="/images/<%= image.filename %>" alt="" style="width: 100px;height: 100px;">
+                <% }) %> 
+            </td>
+            <td><h5><%=product.price%></h5></td>
+            <td><a class="btn btn-warning" href="/<%=product._id%>/edit">EDIT </a></td>
+            <td><form action="/<%=product._id%>/?_method=DELETE" method="POST"><button class="btn btn-danger">Delete</button></form></td>
+            </tr>
+        <% }) %>
+    </table>
+    </section>
+</body>
+</html>
